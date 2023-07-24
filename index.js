@@ -35,6 +35,7 @@ async function run() {
         const admitCollection = client.db("college").collection("admit");
         const reviewCollection = client.db("college").collection("review");
         const researchCollection = client.db("college").collection("research");
+        const profileCollection = client.db("college").collection("profile");
 
 
         app.get("/users", async (req, res) => {
@@ -113,7 +114,18 @@ async function run() {
        })
 
 
+       // profile
 
+       app.get("/profile", async(req, res) => {
+        const result = await profileCollection.find().toArray();
+        res.send(result)
+       })
+
+       app.post("/profile", async(req, res) => {
+        const data = req.body;
+        const result = await profileCollection.insertOne(data);
+        res.send(result)
+       })
 
 
 
